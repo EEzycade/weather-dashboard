@@ -5,7 +5,7 @@ var currentContainerEl = document.getElementById("current-container");
 var futureContainerEl = document.getElementById("forecast-cards");
 var previousSearchesEl = document.getElementById("previous-searches");
 var previousSearchesList = document.getElementById("previous-searches-list");
-var previousSearchListItem = document.querySelectorAll(".search-item");
+var allPreviousSearchBtns = document.querySelectorAll(".prev-search-btn");
 var today = moment();
 
 previousSearchesEl.appendChild(previousSearchesList);
@@ -25,8 +25,7 @@ function initializeApp() {
         localStorage.setItem("citySearchHistory", JSON.stringify(cityHistory));
     }
 
-    futureContainerEl.innerHTML = "";
-    currentContainerEl.innerHTML = "";
+    
     getCoordinates(city);
     previousSearchesList.innerHTML = "";
     cityHistoryListMaker();
@@ -35,21 +34,24 @@ function initializeApp() {
 function cityHistoryListMaker() {
     var pullHistory = JSON.parse(localStorage.getItem("citySearchHistory"));
     for (let i = 0; i < pullHistory.length; i++) {
-        var listItem = document.createElement("li");
-        listItem.setAttribute("class", "search-item");
+        var listItem = document.createElement("button");
+        // listItem.setAttribute("class", "prev-search-btn");
         listItem.innerHTML = pullHistory[i];
+        listItem.className = "prev-search-btn btn btn-primary";
         previousSearchesList.appendChild(listItem);
     }
 }
 
 // create function to get lat and lon of searched city
 function getCoordinates(city) {
+    futureContainerEl.innerHTML = "";
+    currentContainerEl.innerHTML = "";
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=914422851b1b4c67eeeca21958292d40&units=imperial`)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            // console.log(data);
 
             var name = data.name;
             var lat = data.coord.lat;
@@ -69,7 +71,7 @@ function populateWeatherData(name, lat, lon) {
         })
         .then(function (data) {
             // log json response to console
-            console.log(data);
+            // console.log(data);
             // set variables
             var response = data.current;
             var weatherIconCode = response.weather[0].icon;
@@ -90,8 +92,10 @@ function populateWeatherData(name, lat, lon) {
                 cityUvIndex.setAttribute("class", "uv-moderate");
             } else if (response.uvi >= 6 && response.uvi <= 7.99) {
                 cityUvIndex.setAttribute("class", "uv-high");
-            } else {
-
+            } else if (response.uvi >= 8 && response.uvi <= 10.99) {
+                cityUvIndex.setAttribute("class", "uv-very-high");
+            } else if (response.uvi >= 11) {
+                cityUvIndex.setAttribute("class", "uv-extreme");
             }
             cityUvIndex.innerHTML = `<strong>UV index: ${response.uvi}</strong>`;
             // append current weather data elements
@@ -130,8 +134,12 @@ function populateWeatherData(name, lat, lon) {
 
             }
         });
-
-
 }
+
+previousSearchesList.addEventListener("click", function(event) {
+    console.log(event.target.textContent);
+    var btnText = event.target.textContent;
+    getCoordinates(btnText);
+});
 
 submitBtn.addEventListener("click", initializeApp);

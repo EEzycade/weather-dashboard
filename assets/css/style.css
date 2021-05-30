@@ -21,16 +21,32 @@
 
 #submit-btn {
     margin-top: 5px;
+
 }
 
 #main-header {
     color: white;
     text-align: center;
     background-image: linear-gradient(to right, #00b3ff, navy);
+    width: 100%;
+}
+
+.prev-search-btn {
+    margin: 15px;
+    width: 100%;
+    
+}
+
+#previous-searches-list {
+    padding: 10px;
 }
 
 #daily-card {
     width: 18rem;
     margin: 5px;
     background-color: #696969;
+}
+
+.container {
+    margin: 0px;
 }
