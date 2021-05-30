@@ -10,3 +10,12 @@
 * CSS
 * Javascript
 * Open Weather API
+
+## Deployed Application
+https://eezycade.github.io/weather-dashboard/
+
+## Screenshot
+<img src="./assets/images/challenge-6-screenshot.png"/>
+
+## Contributions
+Cade Ellsworth, 2021

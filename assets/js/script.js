@@ -44,6 +44,7 @@ function cityHistoryListMaker() {
 
 // create function to get lat and lon of searched city
 function getCoordinates(city) {
+    searchBar.value = "";
     futureContainerEl.innerHTML = "";
     currentContainerEl.innerHTML = "";
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=914422851b1b4c67eeeca21958292d40&units=imperial`)
