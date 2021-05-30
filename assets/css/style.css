@@ -1,0 +1,36 @@
+/* define classes for uv index */
+.uv-low {
+    color: #5cff90;
+}
+
+.uv-moderate {
+    color: #FED927;
+}
+
+.uv-high {
+    color: #FD9409;
+}
+
+.uv-very-high {
+    color: #a92323;
+}
+
+.uv-extreme {
+    color: #7e539c;
+}
+
+#submit-btn {
+    margin-top: 5px;
+}
+
+#main-header {
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(to right, #00b3ff, navy);
+}
+
+#daily-card {
+    width: 18rem;
+    margin: 5px;
+    background-color: #696969;
+}
